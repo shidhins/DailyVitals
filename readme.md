@@ -4,8 +4,8 @@
 
 <!-- Screenshots -->
 <p align="center">
-  <img src="DailyVitals/screenshot-1.png" alt="Home Screen" width="300"/>
-  <img src="DailyVitals/screenshot-2.png" alt="History Screen" width="300"/>
+  <img src="DailyVitalsUITests/screenshot-1.png" alt="Home Screen" width="300"/>
+  <img src="DailyVitalsUITests/screenshot-2.png" alt="History Screen" width="300"/>
 </p>
 
 ---
