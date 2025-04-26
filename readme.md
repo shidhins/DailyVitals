@@ -1,18 +1,21 @@
 # DailyVitals
 
-> Your personal on-device tracker for daily health metrics: calories, water, and added sugar intake.
+> Your personal on-device logger for key dietary metrics: calories, water, and added sugar intake.
 
-![App Home Screenshot](DailyVitalsUITests/screenshot-1.png)
-![App History Screenshot](DailyVitalsUITests/screenshot-2.png)
+<!-- Screenshots -->
+<p align="center">
+  <img src="DailyVitals/screenshot-1.png" alt="Home Screen" width="300"/>
+  <img src="DailyVitals/screenshot-2.png" alt="History Screen" width="300"/>
+</p>
 
 ---
 
 ## 📖 Overview
 DailyVitals is a minimalist iOS app that helps you track and meet simple daily health goals:
 
-- **Calories**: Increment or decrement in 50 kcal steps.
-- **Water**: Increment or decrement in 1.5 cup steps.
-- **Added Sugar**: Increment or decrement in 0.5 tsp steps.
+- **Calories**: Increment or decrement in 50 kcal steps.
+- **Water**: Increment or decrement in 1.5 cup steps.
+- **Added Sugar**: Increment or decrement in 0.5 tsp steps.
 
 Other features:
 - **Persistent storage** via `@AppStorage` (UserDefaults).
@@ -56,19 +59,20 @@ Other features:
 
 ## 🎯 Features
 
-| Feature                    | Description                                                   |
-| -------------------------- | ------------------------------------------------------------- |
-| Calorie Tracker            | +/– 50 kcal increments with big central display               |
-| Water Tracker              | +/– 1.5 cup increments                                         |
-| Sugar Tracker              | +/– 0.5 tsp increments                                         |
-| Midnight Auto-Reset        | Resets all counters at midnight using `scenePhase` hook       |
-| History Log                | View, edit, and delete past entries with tap & swipe actions  |
-| Swipe Gesture Navigation   | Right-swipe from home to open history view                    |
-| Dark Minimal Theme         | Custom dark background with white iconography            |
+| Feature                  | Description                                                   |
+|--------------------------|---------------------------------------------------------------|
+| Calorie Tracker          | +/– 50 kcal increments with big central display               |
+| Water Tracker            | +/– 1.5 cup increments                                        |
+| Sugar Tracker            | +/– 0.5 tsp increments                                        |
+| Midnight Auto-Reset      | Resets all counters at midnight using `scenePhase` hook       |
+| History Log              | View, edit, and delete past entries with tap & swipe actions  |
+| Swipe Gesture Navigation | Right-swipe from home to open history view                    |
+| Dark Minimal Theme       | Custom dark-teal background with white iconography            |
 
 ---
 
 ## 🛠️ Folder Structure
+
 ```
 DailyVitals/
 ├── DailyVitals.xcodeproj    # Xcode project file
@@ -84,4 +88,7 @@ DailyVitals/
 ---
 
 ## 🤝 Contributing
+
 Contributions and suggestions are welcome! Please open an issue or submit a pull request.
+
+
