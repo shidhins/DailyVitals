@@ -1,26 +1,17 @@
-//
-//  DailyEntry.swift
-//  DailyVitals
-//
-//  Created by Shidhin Sarath on 4/23/25.
-//
-
-
 import Foundation
 
-struct DailyEntry: Codable, Identifiable {
+struct DailyEntry: Codable, Identifiable, Equatable {
     let id: UUID
-    let date: String // formatted as "yyyy-MM-dd"
-    let calories: Int
-    let water: Int
-    let sugar: Double
-    
-    // Custom initializer enables decoding 'id' and provides a default for new entries
-        init(id: UUID = UUID(), date: String, calories: Int, water: Int, sugar: Double) {
-            self.id = id
-            self.date = date
-            self.calories = calories
-            self.water = water
-            self.sugar = sugar
-        }
+    let date: String         // keep as let
+    var calories: Int        // make mutable
+    var water: Double        // make mutable
+    var sugar: Double        // make mutable
+
+    init(id: UUID = UUID(), date: String, calories: Int, water: Double, sugar: Double) {
+        self.id = id
+        self.date = date
+        self.calories = calories
+        self.water = water
+        self.sugar = sugar
+    }
 }

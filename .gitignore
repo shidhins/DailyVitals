@@ -1,0 +1,20 @@
+# Xcode
+DerivedData/
+build/
+*.xcworkspace
+!default\.xcworkspace
+xcuserdata/
+*.moved-aside
+*.xcuserstate
+
+# Swift Package Manager
+Packages/
+.swiftpm
+
+# CocoaPods
+Pods/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/README.md

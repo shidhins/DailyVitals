@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 extension Color {
     static let background = Color(red: 0.08, green: 0.08, blue: 0.10)
@@ -7,11 +8,21 @@ extension Color {
 
 struct ContentView: View {
     @AppStorage("calories") private var calories: Int = 0
-    @AppStorage("water")    private var water: Int = 0
+    @AppStorage("water")    private var water: Double = 0.0
     @AppStorage("sugar")    private var sugar: Double = 0.0
     @AppStorage("lastOpenedDate") private var lastOpenedDate: String = ""
     @AppStorage("dailyLog") private var dailyLogData: Data = Data()
     @State private var dailyLog: [DailyEntry] = []
+    @State private var showHistory = false
+    // Stores the last time any button was tapped, formatted "HH:mm"
+    @AppStorage("lastUpdateTime") private var lastUpdateTime: String = ""
+
+    // Reusable formatter for hour:minute
+    private static let timeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "HH:mm"
+        return f
+    }()
 
     @Environment(\.scenePhase) var scenePhase
 
@@ -32,12 +43,11 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
-                        NavigationLink {
-                            HistoryView(entries: dailyLog)
-                        } label: {
-                            Text("View History")
+                        if !lastUpdateTime.isEmpty {
+                            Text("Last updated: \(lastUpdateTime)")
                                 .font(.subheadline)
                                 .foregroundColor(.white.opacity(0.7))
+                                .padding(.top, 4)
                         }
                     }
                     
@@ -49,8 +59,16 @@ struct ContentView: View {
                         value: "\(calories)",
                         valueFont: .system(size: 60, weight: .bold),
                         iconSize: 30,
-                        increment: { calories += 50 },
-                        decrement: { if calories >= 50 { calories -= 50 } }
+                        increment: {
+                            calories += 50
+                            lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                        },
+                        decrement: {
+                            if calories >= 50 {
+                                calories -= 50
+                                lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                            }
+                        }
                     )
                     
                     Spacer()
@@ -62,24 +80,57 @@ struct ContentView: View {
                             value: "\(water) cups",
                             valueFont: .title2,
                             iconSize: 24,
-                            increment: { water += 1 },
-                            decrement: { if water >= 1 { water -= 1 } }
+                            increment: {
+                                water += 1.5
+                                lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                            },
+                            decrement: {
+                                if water >= 1.5 {
+                                    water -= 1.5
+                                    lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                                }
+                            }
                         )
                         GoalTrackerView(
                             title: "Sugar",
                             value: "\(String(format: "%.1f", sugar)) tsp",
                             valueFont: .title2,
                             iconSize: 24,
-                            increment: { sugar += 0.5 },
-                            decrement: { if sugar >= 0.5 { sugar -= 0.5 } }
+                            increment: {
+                                sugar += 0.5
+                                lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                            },
+                            decrement: {
+                                if sugar >= 0.5 {
+                                    sugar -= 0.5
+                                    lastUpdateTime = ContentView.timeFormatter.string(from: Date())
+                                }
+                            }
                         )
                     }
                     .padding(.bottom, 40)
                 }
                 .padding(.horizontal, 24)
             }
+            // Swipe gesture to show history
+            .gesture(
+                DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                    .onEnded { value in
+                        if value.translation.width > 50 && abs(value.translation.height) < 30 {
+                            showHistory = true
+                        }
+                    }
+            )
+            .navigationDestination(isPresented: $showHistory) {
+                HistoryView(entries: $dailyLog)
+            }
             .onChange(of: scenePhase) { if scenePhase == .active { checkForNewDayAndReset() } }
             .onAppear { loadDailyLog() }
+            .onChange(of: dailyLog) { newLog in
+                if let encoded = try? JSONEncoder().encode(newLog) {
+                    dailyLogData = encoded
+                }
+            }
         }
     }
 
