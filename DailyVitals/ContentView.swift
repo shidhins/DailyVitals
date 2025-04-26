@@ -126,8 +126,8 @@ struct ContentView: View {
             }
             .onChange(of: scenePhase) { if scenePhase == .active { checkForNewDayAndReset() } }
             .onAppear { loadDailyLog() }
-            .onChange(of: dailyLog) { newLog in
-                if let encoded = try? JSONEncoder().encode(newLog) {
+            .onChange(of: dailyLog) {
+                if let encoded = try? JSONEncoder().encode(dailyLog) {
                     dailyLogData = encoded
                 }
             }

@@ -2,7 +2,8 @@
 
 > Your personal on-device tracker for daily health metrics: calories, water, and added sugar intake.
 
-![App Screenshot](path/to/screenshot.png)
+![App Home Screenshot](DailyVitalsUITests/screenshot-1.png)
+![App History Screenshot](DailyVitalsUITests/screenshot-2.png)
 
 ---
 
